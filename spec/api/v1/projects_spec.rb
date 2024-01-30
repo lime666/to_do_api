@@ -18,7 +18,7 @@ describe 'Projects' do
         run_test!
       end
 
-      response(422, 'Error message') do
+      response(400, 'Error message') do
         schema '$ref': '#/definitions/error'
         run_test!
       end
@@ -35,7 +35,7 @@ describe 'Projects' do
         run_test!
       end
 
-      response(422, 'Invalid credentials') do
+      response(400, 'Invalid credentials') do
         schema '$ref': '#/definitions/error'
         run_test!
       end
@@ -77,7 +77,7 @@ describe 'Projects' do
         run_test!
       end
 
-      response(422, 'Not correct parameters.') do
+      response(400, 'Not correct parameters.') do
         schema '$ref': '#/definitions/error'
         run_test!
       end
@@ -112,7 +112,7 @@ describe 'Projects' do
         run_test!
       end
 
-      response(422, 'Invalid credentials') do
+      response(400, 'Invalid credentials') do
         schema '$ref': '#/definitions/error'
         run_test!
       end

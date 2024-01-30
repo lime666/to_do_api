@@ -18,7 +18,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     if @task.save
       render json: @task, serializer: TaskSerializer, status: :created
     else
-      error_response(@task.errors.full_messages.first, :unprocessable_entity)
+      error_response(@task.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     if @task.update(task_params)
       render json: @task, serializer: TaskSerializer, status: :ok
     else
-      error_response(@task.errors.full_messages.first, :unprocessable_entity)
+      error_response(@task.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     if @task.destroy
       success_response(t('success.task_destroyed'), :no_content)
     else
-      error_response(@task.errors.full_messages.first, :unprocessable_entity)
+      error_response(@task.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -51,6 +51,6 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :project_id)
+    params.permit(:title, :description, :status, :project_id)
   end
 end

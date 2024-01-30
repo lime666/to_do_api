@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+
+  success:
+    project_destroyed: "Project was successfully destroyed"
+    task_destroyed: "Task was successfully destroyed"
+    user_destroyed: "User was successfully destroyed"
+  error:
+    not_found: "Not found"
+    incorrect_credentials: "Credentials weren't correct"
