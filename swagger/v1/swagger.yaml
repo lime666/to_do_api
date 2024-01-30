@@ -88,7 +88,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/project"
-        '422':
+        '400':
           description: Error message
           content:
             application/json:
@@ -107,7 +107,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/project"
-        '422':
+        '400':
           description: Invalid credentials
           content:
             application/json:
@@ -154,7 +154,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/project"
-        '422':
+        '400':
           description: Not correct parameters.
           content:
             application/json:
@@ -194,7 +194,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/project_with_tasks"
-        '422':
+        '400':
           description: Invalid credentials
           content:
             application/json:
@@ -215,7 +215,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/task"
-        '422':
+        '400':
           description: Error message
           content:
             application/json:
@@ -235,7 +235,7 @@ paths:
       parameters:
       - name: status
         in: query
-        description: task status for filtering
+        description: 'Task status for filtering. Options: new_made, in_progress, done.'
         schema:
           type: string
       responses:
@@ -245,7 +245,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/task"
-        '422':
+        '400':
           description: Invalid credentials
           content:
             application/json:
@@ -292,7 +292,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/task"
-        '422':
+        '400':
           description: Not correct parameters.
           content:
             application/json:
@@ -353,7 +353,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/definitions/user"
-        '422':
+        '400':
           description: Not correct parameters.
           content:
             application/json:

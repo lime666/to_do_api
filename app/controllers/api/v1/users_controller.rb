@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     if @current_user.update(user_params)
       render json: @current_user, serializer: UserSerializer
     else
-      error_response(@current_user.errors.full_messages.first, :unprocessable_entity)
+      error_response(@current_user.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -24,6 +24,6 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.permit(:email, :password, :password_confirmation)
   end
 end

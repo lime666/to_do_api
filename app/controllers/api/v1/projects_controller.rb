@@ -13,7 +13,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
     if @project.save
       render json: @project, serializer: ProjectSerializer, status: :created
     else
-      error_response(@project.errors.full_messages.first, :unprocessable_entity)
+      error_response(@project.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -25,7 +25,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
     if @project.update(project_params)
       render json: @project, serializer: ProjectSerializer, status: :ok
     else
-      error_response(@project.errors.full_messages.first, :unprocessable_entity)
+      error_response(@project.errors.full_messages.first, :bad_request)
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::ProjectsController < Api::V1::ApplicationController
     if @project.destroy
       success_response(t('success.project_destroyed'), :no_content)
     else
-      error_response(@project.errors.full_messages.first, :unprocessable_entity)
+      error_response(@project.errors.full_messages.first, :bad_request)
     end
   end
 

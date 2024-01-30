@@ -13,9 +13,21 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
+
+# require 'helpers'
+require 'factory_bot_rails'
+require 'shoulda/matchers'
+require 'shoulda/matchers/integrations/test_frameworks/rspec'
+
+FactoryBot.factories.clear
+FactoryBot.reload
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |file| require file }
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.exclude_pattern = 'api/**/*_spec.rb'
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

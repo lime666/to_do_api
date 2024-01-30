@@ -1,24 +1,23 @@
-# README
+# Please, run these commands to set up the app:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* `git clone git@github.com:lime666/to_do_api.git`
+* `cd to_do_api`
+* `bundle`
 
-Things you may want to cover:
+# Create and migrate database:
 
-* Ruby version
+* `rails db:create`
+* `rails db:migrate`
 
-* System dependencies
+# Generate swagger docs:
 
-* Configuration
+* `rake rswag:specs:swaggerize`
 
-* Database creation
+# Run this command to use rails cache in development mode:
 
-* Database initialization
+* `rails dev:cache`
 
-* How to run the test suite
+# Run these commands to run tests:
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* `rspec` - to run all tests
+* `rspec ./spec/models/user_spec.rb` - f.e., to run specific tests

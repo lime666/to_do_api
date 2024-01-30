@@ -38,7 +38,7 @@ describe 'Users' do
         run_test!
       end
 
-      response(422, 'Not correct parameters.') do
+      response(400, 'Not correct parameters.') do
         schema '$ref': '#/definitions/error'
         run_test!
       end
