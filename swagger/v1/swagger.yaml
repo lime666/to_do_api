@@ -1,0 +1,507 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+basePath: "/v1"
+paths:
+  "/api/v1/auth/sign_up":
+    post:
+      summary: Sign up authentication
+      tags:
+      - Auth
+      parameters:
+      - name: email
+        in: query
+        description: user email
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: user password
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Valid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/registration"
+        '422':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/auth/sign_in":
+    post:
+      summary: Sign in authentication
+      tags:
+      - Auth
+      parameters:
+      - name: email
+        in: query
+        description: user email
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: user password
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Valid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/auth"
+        '422':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/projects":
+    post:
+      summary: Create project
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      parameters:
+      - name: title
+        in: query
+        description: project title
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: project description
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/project"
+        '422':
+          description: Error message
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+    get:
+      summary: Show all the projects
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: List of all projects
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/project"
+        '422':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/projects/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: project id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show project
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: Show project
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/project_params"
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+    patch:
+      summary: update project
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '200':
+          description: Project updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/project"
+        '422':
+          description: Not correct parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/definitions/project_params"
+    delete:
+      summary: delete project
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      responses:
+        '204':
+          description: Project successfully destroyed
+        '404':
+          description: project not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/projects/index_projects_with_tasks":
+    get:
+      summary: Show all the projects with their tasks
+      security:
+      - bearerAuth: []
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: List of all projects with tasks
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/project_with_tasks"
+        '422':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/tasks":
+    post:
+      summary: Create task
+      security:
+      - bearerAuth: []
+      tags:
+      - Tasks
+      parameters: []
+      responses:
+        '201':
+          description: task created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/task"
+        '422':
+          description: Error message
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/definitions/task_params"
+    get:
+      summary: Show all the tasks
+      security:
+      - bearerAuth: []
+      tags:
+      - Tasks
+      parameters:
+      - name: status
+        in: query
+        description: task status for filtering
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of all tasks
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/task"
+        '422':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/tasks/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: task id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show task
+      security:
+      - bearerAuth: []
+      tags:
+      - Tasks
+      responses:
+        '200':
+          description: Show task
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/task_params"
+        '404':
+          description: task not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+    patch:
+      summary: update task
+      security:
+      - bearerAuth: []
+      tags:
+      - Tasks
+      parameters: []
+      responses:
+        '200':
+          description: task updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/task"
+        '422':
+          description: Not correct parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/definitions/task_params"
+    delete:
+      summary: delete task
+      security:
+      - bearerAuth: []
+      tags:
+      - Tasks
+      responses:
+        '204':
+          description: task successfully destroyed
+        '404':
+          description: task not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/user/me":
+    get:
+      summary: show user
+      security:
+      - bearerAuth: []
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Show user
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/user"
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+  "/api/v1/user/update_my_account":
+    patch:
+      summary: update user
+      security:
+      - bearerAuth: []
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: user updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/user"
+        '422':
+          description: Not correct parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/definitions/user_params"
+  "/api/v1/user/destroy_my_account":
+    delete:
+      summary: delete user
+      security:
+      - bearerAuth: []
+      tags:
+      - Users
+      responses:
+        '204':
+          description: user successfully destroyed
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/error"
+definitions:
+  user:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+        example: john@email.com
+      created_at:
+        type: string
+      updated_at:
+        type: string
+  user_params:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+        example: john@email.com
+      password:
+        type: string
+        example: 1234567b
+      password_confirmation:
+        type: string
+        example: 1234567b
+  error:
+    type: object
+    properties:
+      error:
+        type: string
+        example: Record not found.
+  project:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+        example: Project 1
+      description:
+        type: string
+        example: Short desc for project
+      user_id:
+        type: integer
+        example: 1
+  project_params:
+    type: object
+    properties:
+      title:
+        type: string
+        example: Project 1
+      description:
+        type: string
+        example: Short desc for project
+  project_with_tasks:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+        example: Project 1
+      description:
+        type: string
+        example: Short desc for project
+      user_id:
+        type: integer
+        example: 1
+      tasks:
+        type: array
+  task:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+        example: Task 1
+      description:
+        type: string
+        example: Short desc for task
+      status:
+        type: string
+        example: New
+      project_id:
+        type: integer
+        example: 1
+  task_params:
+    type: object
+    properties:
+      title:
+        type: string
+        example: Task 1
+      description:
+        type: string
+        example: Short desc for task
+      status:
+        type: string
+        example: New
+      project_id:
+        type: integer
+        example: 1
+  auth:
+    type: object
+    properties:
+      message:
+        type: string
+        example: User was successfully created
+      token:
+        type: string
+        example: eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwiZXhwIj
+  registration:
+    type: object
+    properties:
+      token:
+        type: string
+        example: eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoyOCwiZXhwIj
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

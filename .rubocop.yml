@@ -1,0 +1,65 @@
+require:
+  - rubocop-rails
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  SuggestExtensions: false
+  Exclude:
+    - db/migrate/*.rb
+    - db/schema.rb
+    - db/seeds.rb
+    - db/migrate/*.rb
+    - config/initializers/*.rb
+    - config/*.rb
+    - bin/bundle
+    - bin/yarn
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - spec/**/*
+
+Style/StringLiterals:
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 12
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - app/models/concerns/*.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: true
+
+Rails/SaveBang:
+  Enabled: true
+  Include:
+    - 'app/**/*.rb'
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+  
