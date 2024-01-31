@@ -21,3 +21,15 @@
 
 * `rspec` - to run all tests
 * `rspec ./spec/models/user_spec.rb` - f.e., to run specific tests
+
+# Start a project:
+
+* `rails s`
+
+# Sign up and sign in to start ccreating tasks:
+
+In `Auth` tab you'll get a taken which you should paste into pop up field by clicking Authorization button.
+
+# To run rubocop:
+
+* `rubocop`
