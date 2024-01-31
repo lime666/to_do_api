@@ -29,3 +29,7 @@
 # Sign up and sign in to start ccreating tasks:
 
 In `Auth` tab you'll get a taken which you should paste into pop up field by clicking Authorization button.
+
+# To run rubocop:
+
+* `rubocop`
